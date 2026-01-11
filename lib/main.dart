@@ -1,36 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() => runApp(const HitsterLiteApp());
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
+  runApp(const QRMusicPlayerApp());
+}
 
-class HitsterLiteApp extends StatelessWidget {
-  const HitsterLiteApp({super.key});
+class QRMusicPlayerApp extends StatelessWidget {
+  const QRMusicPlayerApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Hitster Lite',
+      title: 'QR Music Player',
       theme: ThemeData.dark(),
-      home: const HitsterHome(),
+      home: const QRMusicPlayerHome(),
     );
   }
 }
 
-class HitsterHome extends StatefulWidget {
-  const HitsterHome({super.key});
+class QRMusicPlayerHome extends StatefulWidget {
+  const QRMusicPlayerHome({super.key});
   @override
-  State<HitsterHome> createState() => HitsterHomeState();
+  State<QRMusicPlayerHome> createState() => QRMusicPlayerHomeState();
 }
 
-class HitsterHomeState extends State<HitsterHome> {
+class QRMusicPlayerHomeState extends State<QRMusicPlayerHome> {
   bool _connected = false;
   bool _playing = false;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Future<void> _connectToSpotify() async {
     try {
       await SpotifySdk.connectToSpotifyRemote(
-        clientId: 'YOUR_SPOTIFY_CLIENT_ID',
-        redirectUrl: 'yourapp://spotify-login',
+        clientId: dotenv.env['SPOTIFY_CLIENT_ID'].toString(),
+        redirectUrl: dotenv.env['SPOTIFY_REDIRECT_URL'].toString(),
       );
       setState(() => _connected = true);
     } catch (e) {
@@ -65,7 +69,7 @@ class HitsterHomeState extends State<HitsterHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Hitster Custom')),
+      appBar: AppBar(title: const Text('QR Music Player')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
