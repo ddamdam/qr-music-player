@@ -1,1 +1,3 @@
-# qr-music-player
+# qr_music_player
+
+A new Flutter project.
