@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() => runApp(const QRMusicPlayerApp());
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
+  runApp(const QRMusicPlayerApp());
+}
 
 class QRMusicPlayerApp extends StatelessWidget {
   const QRMusicPlayerApp({super.key});
@@ -29,8 +33,8 @@ class QRMusicPlayerHomeState extends State<QRMusicPlayerHome> {
   Future<void> _connectToSpotify() async {
     try {
       await SpotifySdk.connectToSpotifyRemote(
-        clientId: 'xd',
-        redirectUrl: 'xd',
+        clientId: dotenv.env['SPOTIFY_CLIENT_ID']!,
+        redirectUrl: dotenv.env['SPOTIFY_REDIRECT_URL']!,
       );
       setState(() => _connected = true);
     } catch (e) {
