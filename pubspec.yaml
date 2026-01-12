@@ -9,9 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  spotify_sdk: ^2.3.0
+  spotify_sdk: ^3.0.2
   mobile_scanner: ^7.1.4
-  flutter_dotenv: ^5.2.1
+  flutter_dotenv: ^6.0.0
 
 dev_dependencies:
   flutter_test:
