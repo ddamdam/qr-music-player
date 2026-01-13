@@ -66,14 +66,19 @@ class QRMusicPlayerHomeState extends State<QRMusicPlayerHome> {
     if (!url.contains('open.spotify.com')) {
       if (mounted) {
         showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-                title: const Text('Invalid QR Code'),
-                content: Text('The scanned QR code is not a valid Spotify link:\n\n$url'),
-                actions: [
-                    TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK')),
-                ],
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Invalid QR Code'),
+            content: Text(
+              'The scanned QR code is not a valid Spotify link:\n\n$url',
             ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
         );
       }
       return;
