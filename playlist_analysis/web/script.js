@@ -213,6 +213,8 @@ async function analyzePlaylist(playlistId, token) {
             if (!isNaN(year)) {
                 validTracks.push({
                     name: track.name,
+                    artist: track.artists.map(a => a.name).join(', '),
+                    album: track.album.name,
                     year: year,
                     decade: Math.floor(year / 10) * 10
                 });
@@ -290,6 +292,8 @@ function renderTable(tracks) {
                 <tr>
                     <th>Year</th>
                     <th>Song Name</th>
+                    <th>Author</th>
+                    <th>Album</th>
                     <th>Decade</th>
                 </tr>
             </thead>
@@ -301,6 +305,8 @@ function renderTable(tracks) {
             <tr>
                 <td>${track.year}</td>
                 <td>${track.name}</td>
+                <td>${track.artist}</td>
+                <td>${track.album}</td>
                 <td>${track.decade}s</td>
             </tr>
         `;
